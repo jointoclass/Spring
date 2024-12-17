@@ -1,7 +1,6 @@
-package com.dw.jdbcapp.repository;
+package com.dw.jdbcapp.repository.jdbc;
 
 import com.dw.jdbcapp.model.OrderDetail;
-import com.dw.jdbcapp.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -9,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ProductRepository {
+public class OrderDetailJdbcRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
-    public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
-        String query = "select * from 제품";
+    public List<OrderDetail> getAllOrderDetails() {
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        String query = "select * from 주문세부";
         try (
                 Connection connection = DriverManager.getConnection(
                         URL, USER, PASSWORD);
@@ -24,19 +23,19 @@ public class ProductRepository {
                 ResultSet resultSet = statement.executeQuery(query)) {
             System.out.println("데이터베이스 연결 성공");
             while (resultSet.next()) {
-                Product product = new Product();
+                OrderDetail orderDetail = new OrderDetail();
 
-                product.setProductId(resultSet.getInt("제품번호"));
-                product.setProductName(resultSet.getString("제품명"));
-                product.setPackageUnit(resultSet.getString("포장단위"));
-                product.setUnitPrice(resultSet.getInt("단가"));
-                product.setStock(resultSet.getInt("재고"));
+                orderDetail.setOrderId(resultSet.getString("주문번호"));
+                orderDetail.setProductId(resultSet.getInt("제품번호"));
+                orderDetail.setUnitPrice(resultSet.getInt("단가"));
+                orderDetail.setOrderQuantity(resultSet.getInt("주문수량"));
+                orderDetail.setDiscountRate(resultSet.getInt("할인율"));
 
-                products.add(product);
+                orderDetails.add(orderDetail);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return products;
+        return orderDetails;
     }
 }

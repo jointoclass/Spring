@@ -1,20 +1,18 @@
 package com.dw.jdbcapp.controller;
 
+import com.dw.jdbcapp.dto.EmployeeDepartmentDTO;
 import com.dw.jdbcapp.model.Customer;
 import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.service.CustomerService;
 import com.dw.jdbcapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
+@RequestMapping("/api")
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
@@ -37,5 +35,9 @@ public class EmployeeController {
     @GetMapping("/employees/department")
     public List<Map<String, Object>> getEmployeesWithDepartmentName() {
         return employeeService.getEmployeeWithDepartName();
+    }
+    @GetMapping("/employees/department2")
+    public List<EmployeeDepartmentDTO> getEmployeesWithDepartName2() {
+        return employeeService.getEmployeesWithDepartName2();
     }
 }

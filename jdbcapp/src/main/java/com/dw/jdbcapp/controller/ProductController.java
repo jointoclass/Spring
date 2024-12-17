@@ -5,12 +5,12 @@ import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.service.CustomerService;
 import com.dw.jdbcapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -18,5 +18,9 @@ public class ProductController {
     @GetMapping("/find-all-products")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
+    }
+    @PostMapping("/post/product")
+    public Product saveProduct(@RequestBody Product product) {
+        return productService.saveProduct(product);
     }
 }

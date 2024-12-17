@@ -1,4 +1,4 @@
-package com.dw.jdbcapp.repository;
+package com.dw.jdbcapp.repository.jdbc;
 
 import com.dw.jdbcapp.model.MileGrade;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class MileGradeRepository {
+public class MileGradeJdbcRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
@@ -24,6 +24,7 @@ public class MileGradeRepository {
             System.out.println("데이터베이스 연결 성공");
             while (resultSet.next()) {
                 MileGrade mileGrade = new MileGrade();
+
                 mileGrade.setGrade(resultSet.getString("등급명"));
                 mileGrade.setLowerMileage(resultSet.getInt("하한마일리지"));
                 mileGrade.setUpperMileage(resultSet.getInt("상한마일리지"));

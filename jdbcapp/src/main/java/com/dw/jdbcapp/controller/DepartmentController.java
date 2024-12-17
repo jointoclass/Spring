@@ -17,7 +17,7 @@ public class DepartmentController {
 
     @GetMapping("/findalldepartments")
     public List<Department> getAlldepartment() {
-        return departmentService.getAlldepartment();
+        return departmentService.getAllDepartments();
     }
 
     // single data (저장할 데이터 객체 1개 처리용

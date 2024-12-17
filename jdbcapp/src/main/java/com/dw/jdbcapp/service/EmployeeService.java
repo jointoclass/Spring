@@ -3,6 +3,7 @@ package com.dw.jdbcapp.service;
 import com.dw.jdbcapp.dto.EmployeeDepartmentDTO;
 import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.repository.jdbc.EmployeeJdbcRepository;
+import com.dw.jdbcapp.repository.jdbc.EmployeeJdbcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class EmployeeService {
     @Autowired
     EmployeeJdbcRepository employeeRepository;
 
-    public List<Employee> getAllemployees() {
+    public List<Employee> getAllEmployees() {
         return employeeRepository.getAllEmployees();
     }
 
@@ -24,7 +25,7 @@ public class EmployeeService {
         return employeeRepository.getEmployeeById(id);
     }
 
-    public List<Map<String, Object>> getEmployeeWithDepartName() {
+    public List<Map<String,Object>> getEmployeesWithDepartName() {
         return employeeRepository.getEmployeesWithDepartName();
     }
 
@@ -44,5 +45,16 @@ public class EmployeeService {
             employeeDepartmentDTOList.add(temp);
         }
         return employeeDepartmentDTOList;
+    }
+
+    public List<Employee> getEmployeesWithDepartmentAndPosition(
+            String departmentNumber, String position
+    ) {
+        return employeeRepository.getEmployeesWithDepartmentAndPosition(
+                departmentNumber, position);
+    }
+
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepository.saveEmployee(employee);
     }
 }

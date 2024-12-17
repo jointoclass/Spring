@@ -12,7 +12,7 @@ public class DepartmentService {
     @Autowired
     DepartmentJdbcRepository departmentRepository;
 
-    public List<Department> getAlldepartment() {
+    public List<Department> getAllDepartments() {
         return departmentRepository.getAllDepartment();
     }
 
@@ -21,7 +21,7 @@ public class DepartmentService {
     }
 
     public List<Department> saveDepartmentList(
-                            List<Department> departmentList) {
+            List<Department> departmentList) {
         for (Department data : departmentList) {
             departmentRepository.saveDepartment(data);
         }

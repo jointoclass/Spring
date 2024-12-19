@@ -3,6 +3,7 @@ package com.dw.jdbcapp.repository.template;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.iface.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -38,8 +39,16 @@ public class ProductTemplateRepository implements ProductRepository {
     @Override
     public Product getProductById(int productNumber) {
         String query = "select * from 제품 where 제품번호=?";
-        return jdbcTemplate.queryForObject(query, productRowMapper,
-                productNumber);
+        try {
+            return jdbcTemplate.queryForObject(query, productRowMapper,
+                    productNumber);
+        }catch (EmptyResultDataAccessException e) {
+            // 자바에 정의된 예외를 사용자정의예욀로 바꿈으로 인해
+            // CustomExceptionHandler의 코드를 단순하게 유지 가능
+            // (예외들을 비슷한 유형으로 그룹지을 수 없음)
+            throw new EmptyResultDataAccessException(
+                    "제품번호가 올바르지 않습니다" + productNumber, 1);
+        }
     }
 
     @Override
@@ -73,5 +82,10 @@ public class ProductTemplateRepository implements ProductRepository {
         String query = "delete from 제품 where 제품번호=?";
         jdbcTemplate.update(query, id);
         return id;
+    }
+
+    @Override
+    public List<Product> getProductsBelowPrice(double price) {
+        return List.of();
     }
 }

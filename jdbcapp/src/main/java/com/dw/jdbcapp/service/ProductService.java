@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.service;
 
+import com.dw.jdbcapp.exception.InvalidRequestException;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.jdbc.ProductJdbcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,14 @@ public class ProductService {
     }
 
     public Product getProductById(int productNumber) {
+        if (productNumber < 0) {
+            throw new InvalidRequestException("존재하지 않는 제품번호: "
+                    + productNumber);
+        }
         return productRepository.getProductById(productNumber);
     }
 
-    public Product saveProduct(Product product) {
-        return productRepository.saveProduct(product);
+    public Product saveProduct(Product product) {return productRepository.saveProduct(product);
     }
 
     public List<Product> saveProductList(List<Product> productList) {

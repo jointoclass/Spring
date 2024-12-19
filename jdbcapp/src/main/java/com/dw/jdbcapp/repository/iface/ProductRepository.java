@@ -5,9 +5,10 @@ import com.dw.jdbcapp.model.Product;
 import java.util.List;
 
 public interface ProductRepository {
-    public List<Product> getAllProducts();
+    List<Product> getAllProducts();
     public Product getProductById(int productNumber);
     public Product saveProduct(Product product);
     public Product updateProduct(Product product);
-    public int deleteProduct(int id);
+    int deleteProduct(int id);
+    List<Product> getProductsBelowPrice(double price);
 }

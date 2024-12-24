@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OrderDetailRepository {
     public List<OrderDetail> getAllOrderDetails();
+    int saveOrderDetail(OrderDetail orderDetail);
 }

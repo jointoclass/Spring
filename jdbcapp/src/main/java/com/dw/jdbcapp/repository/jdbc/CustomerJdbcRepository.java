@@ -14,7 +14,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
-@Override
+    @Override
     public List<Customer> getAllCustomers() {
         List<Customer> customers = new ArrayList<>();
         String query = "select * from 고객";
@@ -43,5 +43,15 @@ public class CustomerJdbcRepository implements CustomerRepository {
             e.printStackTrace();
         }
         return customers;
+    }
+
+    @Override
+    public List<Customer> getCustomersWithHighMileThanAvg() {
+        return List.of();
+    }
+
+    @Override
+    public List<Customer> getCustomersByMileageGrade(String grade) {
+        return List.of();
     }
 }

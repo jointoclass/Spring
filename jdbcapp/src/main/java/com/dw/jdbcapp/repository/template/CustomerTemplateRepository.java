@@ -14,11 +14,11 @@ import java.util.List;
 @Repository
 public class CustomerTemplateRepository implements CustomerRepository {
     // JDBC Template은 반드시 JdbcTemplate 객체를 의존성 주입받아 사용해야 함
-
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private final RowMapper<Customer> customerRowMapper = new RowMapper<Customer>() {
+    private final RowMapper<Customer> customerRowMapper
+            = new RowMapper<Customer>() {
         @Override
         public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
             Customer customer = new Customer();
@@ -39,5 +39,22 @@ public class CustomerTemplateRepository implements CustomerRepository {
     public List<Customer> getAllCustomers() {
         String query = "select * from 고객";
         return jdbcTemplate.query(query, customerRowMapper);
+    }
+
+    // 과제 4-1 전체 평균마일리지보다 큰 마일리지를 가진 고객들을 조회하는 API
+    @Override
+    public List<Customer> getCustomersWithHighMileThanAvg() {
+        String query = "select * from 고객 where 마일리지 > " +
+                "(select avg(마일리지) from 고객)";
+        return jdbcTemplate.query(query, customerRowMapper);
+    }
+
+    // 과제 4-2 마일리지등급을 매개변수로 해당 마일리지등급을 가진 고객들을 조회하는 API
+    @Override
+    public List<Customer> getCustomersByMileageGrade(String grade) {
+        String query = "select 고객.* from 고객 join 마일리지등급 " +
+                "on 고객.마일리지 between 마일리지등급.하한마일리지 and 마일리지등급.상한마일리지\n" +
+                "where 마일리지등급.등급명 = ?";
+        return jdbcTemplate.query(query, customerRowMapper, grade);
     }
 }

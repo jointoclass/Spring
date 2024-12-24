@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository("jdbcRepository")
+@Repository
 public class EmployeeJdbcRepository implements EmployeeRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
@@ -51,6 +51,7 @@ public class EmployeeJdbcRepository implements EmployeeRepository {
         }
         return employees;
     }
+
     @Override
     public Employee getEmployeeById(String id) {
         Employee employee = new Employee();
@@ -176,5 +177,15 @@ public class EmployeeJdbcRepository implements EmployeeRepository {
             e.printStackTrace();
         }
         return employee;
+    }
+
+    @Override
+    public List<Employee> getEmployeesByHiredate(String hiredate) {
+        return List.of();
+    }
+
+    @Override
+    public List<Employee> getLastHiredEmployees() {
+        return List.of();
     }
 }

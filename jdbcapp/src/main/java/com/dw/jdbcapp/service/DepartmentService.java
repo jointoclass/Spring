@@ -20,6 +20,7 @@ public class DepartmentService {
         return departmentRepository.saveDepartment(department);
     }
 
+
     public List<Department> saveDepartmentList(
             List<Department> departmentList) {
         for (Department data : departmentList) {

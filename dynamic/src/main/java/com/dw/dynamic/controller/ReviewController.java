@@ -1,7 +1,6 @@
 package com.dw.dynamic.controller;
 
 import com.dw.dynamic.DTO.ReviewDTO;
-import com.dw.dynamic.model.Review;
 import com.dw.dynamic.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

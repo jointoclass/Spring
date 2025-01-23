@@ -1,9 +1,7 @@
 package com.dw.dynamic.controller;
 
 import com.dw.dynamic.DTO.BoardDTO;
-import com.dw.dynamic.model.Board;
 import com.dw.dynamic.service.BoardService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +28,7 @@ public class BoardController {
                 HttpStatus.CREATED);
     }
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBoard(@PathVariable long id) {
+    public ResponseEntity<String> deleteBoard(@PathVariable Long id) {
         return new ResponseEntity<>(
                 boardService.deleteBoard(id),
                 HttpStatus.OK);

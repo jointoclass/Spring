@@ -13,9 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/purchase")
-public class
-
-PurchaseController {
+public class PurchaseController {
     @Autowired
     PurchaseService purchaseService;
 

@@ -2,6 +2,7 @@ const urlBoard = "/api/board/all";
 const urlSaveBoard = "/api/board/save";
 const urlDeleteBoard = "/api/board/delete";
 const urlSession = "/api/user/current-user";
+const jwtToken = sessionStorage.getItem("jwt-token");
 
 let dataList = [];
 let pageCurrent = 1;
@@ -10,8 +11,17 @@ const itemsPerPage = 5;
 let currentUser = {};
 
 function sessionCurrent() {
+  if (!jwtToken) {
+    alert("로그인해주세요.");
+    return;
+  }
   axios
-    .get(urlSession, { withCredentials: true })
+    .get(urlSession, {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    })
     .then((response) => {
       console.log("데이터:", response.data);
       currentUser = response.data;

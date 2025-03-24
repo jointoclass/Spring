@@ -1,4 +1,5 @@
-const urlLogin = "/api/user/login";
+//const urlLogin = "/api/user/login";
+const urlAuthenticate = "/api/authenticate";
 const urlLogout = "/api/user/logout";
 const urlSignup = "/api/user/register";
 const urlSession = "/api/user/current-user";
@@ -36,14 +37,14 @@ document.querySelector("#userEmail").addEventListener("change", (e) => {
 
 document.querySelector(".loginBtn").addEventListener("click", () => {
   const data = {
-    userName: userId,
+    username: userId,
     password: password,
   };
   axios
-    .post(urlLogin, data, { withCredentials: true })
+    .post(urlAuthenticate, data, { withCredentials: true })
     .then((response) => {
       console.log("데이터: ", response.data);
-      sessionCurrent();
+      sessionStorage.setItem("jwt-token", response.data.token);
     })
     .catch((error) => {
       console.log("에러 발생: ", error.response.data);
@@ -65,7 +66,7 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
 });
 document.querySelector(".signupBtn").addEventListener("click", () => {
   const data = {
-    userName: userNameSignup,
+    username: userNameSignup,
     password: passwordSignup,
     realName: realName,
     email: userEmail,
@@ -76,7 +77,7 @@ document.querySelector(".signupBtn").addEventListener("click", () => {
     .then((response) => {
       console.log("데이터: ", response.data);
       alert("회원가입이 완료되었습니다. 로그인해주세요.");
-      window.location.reload();
+      // window.location.reload();
     })
     .catch((error) => {
       console.log("에러 발생: ", error.response.data);

@@ -52,16 +52,8 @@ document.querySelector(".loginBtn").addEventListener("click", () => {
 });
 document.querySelector(".logoutBtn").addEventListener("click", () => {
   if (confirm("로그아웃하시겠습니까?")) {
-    axios
-      .post(urlLogout, {}, { withCredentials: true })
-      .then((response) => {
-        console.log("데이터:", response.data);
-        document.querySelector(".login-box").classList.remove("hidden");
-        document.querySelector(".user-box").classList.add("hidden");
-      })
-      .catch((error) => {
-        console.log("에러 발생:", error.response.data);
-      });
+    sessionStorage.removeItem("jwt-token");
+    window.location.reload();
   }
 });
 document.querySelector(".signupBtn").addEventListener("click", () => {
